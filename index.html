@@ -347,7 +347,7 @@
     .credential-item { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.85); }
     .credential-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
 
-    #how { padding: 100px 0 0; background: var(--dark-card); position: relative; overflow: hidden; }
+    #how { padding: 100px 0; background: var(--dark-card); position: relative; overflow: hidden; }
     #how::before {
       content: ''; position: absolute; top: -200px; right: -200px;
       width: 600px; height: 600px;
@@ -384,9 +384,11 @@
       0%,100% { transform: translateY(0) rotate(var(--r,0deg)); }
       50%      { transform: translateY(-16px) rotate(var(--r,0deg)); }
     }
-    @keyframes ondularTinta {
-      0%   { transform: scaleY(1); }
-      100% { transform: scaleY(1.18); }
+    @keyframes escorrer {
+      0%   { transform: translateY(-300px); opacity: 1; }
+      78%  { transform: translateY(6px);   opacity: 1; }
+      90%  { transform: translateY(-3px);  opacity: 1; }
+      100% { transform: translateY(0px);   opacity: 1; }
     }
     @keyframes pandeiro-pop {
       0%   { opacity:0; transform: scale(0.4) rotate(-30deg); }
@@ -401,25 +403,32 @@
       overflow: hidden;
     }
 
-    /* ─ Paint drip divider ─ */
-    .how-drip-bottom {
+    /* ─ Paint drips animados no topo da seção kids ─ */
+    .kids-paint {
       position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      line-height: 0;
+      top: 0; left: 0; right: 0;
+      height: 300px;
+      pointer-events: none;
       z-index: 3;
     }
-    .how-drip-bottom svg {
-      display: block;
-      width: calc(100% + 1.3px);
-      height: 130px;
+    .drip-unit {
+      position: absolute;
+      top: 0;
     }
-    .how-drip-bottom svg path {
-      animation: ondularTinta 5s ease-in-out infinite alternate;
-      transform-origin: bottom center;
+    /* SVG default overflow:hidden clips rect fora do viewport — funciona como máscara */
+    .escorrimento {
+      opacity: 0;
+      transform: translateY(-300px);
     }
+    #kids.visible .drip-unit:nth-child(1)  .escorrimento { animation: escorrer 1.1s 0.00s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(2)  .escorrimento { animation: escorrer 1.3s 0.14s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(3)  .escorrimento { animation: escorrer 1.0s 0.28s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(4)  .escorrimento { animation: escorrer 1.4s 0.07s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(5)  .escorrimento { animation: escorrer 1.1s 0.35s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(6)  .escorrimento { animation: escorrer 1.2s 0.21s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(7)  .escorrimento { animation: escorrer 1.0s 0.42s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(8)  .escorrimento { animation: escorrer 1.3s 0.10s ease-out forwards; }
+    #kids.visible .drip-unit:nth-child(9)  .escorrimento { animation: escorrer 1.1s 0.50s ease-out forwards; }
 
     /* ─ Background pandeiros SVG ─ */
     .kids-pandeiros-bg {
@@ -903,26 +912,81 @@
       </div>
     </div>
 
-    <!-- Tinta verde escorrendo para a seção kids -->
-    <div class="how-drip-bottom">
-      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C30,20 40,70 60,85 C75,97 85,105 100,90 C115,75 120,20 145,20
-                 C170,20 178,95 200,115 C215,128 228,130 240,115 C252,100 258,20 280,20
-                 C305,20 312,80 330,98 C345,112 358,118 372,103 C386,88 390,20 415,20
-                 C440,20 447,105 468,122 C482,133 494,134 505,120 C516,106 520,20 545,20
-                 C570,20 577,88 596,106 C610,120 622,124 634,110 C646,96 650,20 675,20
-                 C700,20 707,98 726,116 C740,128 752,130 763,117 C774,104 778,20 802,20
-                 C826,20 833,85 852,102 C866,115 878,118 890,105 C902,92 906,20 930,20
-                 C954,20 961,92 980,110 C994,123 1006,126 1018,113 C1030,100 1034,20 1058,20
-                 C1082,20 1089,100 1108,118 C1122,130 1134,132 1146,118 C1158,104 1162,20 1186,20
-                 L1200,20 L1200,120 L0,120 Z"
-              fill="#0A1800"/>
-      </svg>
-    </div>
   </section>
 
   <!-- ══ KIDS SECTION ══ -->
   <section id="kids">
+
+    <!-- Gotas de tinta escorrendo do topo ao entrar na seção -->
+    <div class="kids-paint">
+
+      <!-- Cada drip-unit tem um SVG com overflow:hidden (padrão SVG) como máscara natural -->
+      <!-- O rect começa translateY(-300px) = fora do viewport SVG → animação desce até 0 → fica visível -->
+
+      <div class="drip-unit" style="left:2%">
+        <svg width="85" height="300" viewBox="0 0 85 300" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d1"><path d="M8,0 L77,0 C80,50 82,110 80,165 C77,215 64,258 42,296 C20,258 7,215 4,165 C2,110 4,50 8,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="85" height="300" class="escorrimento" style="fill:#1B4000" clip-path="url(#d1)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:12%">
+        <svg width="55" height="260" viewBox="0 0 55 260" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d2"><path d="M5,0 L50,0 C53,38 55,85 53,132 C51,178 41,218 27,256 C13,218 3,178 1,132 C-1,85 1,38 5,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="55" height="260" class="escorrimento" style="fill:#2A6300" clip-path="url(#d2)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:21%">
+        <svg width="100" height="290" viewBox="0 0 100 290" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d3"><path d="M10,0 L90,0 C93,55 96,118 93,170 C90,218 75,260 50,286 C25,260 9,218 6,170 C3,118 6,55 10,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="100" height="290" class="escorrimento" style="fill:#3A8500" clip-path="url(#d3)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:34%">
+        <svg width="60" height="240" viewBox="0 0 60 240" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d4"><path d="M5,0 L55,0 C58,35 60,78 58,120 C56,162 45,198 30,236 C15,198 3,162 1,120 C-1,78 1,35 5,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="60" height="240" class="escorrimento" style="fill:#143300" clip-path="url(#d4)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:44%">
+        <svg width="90" height="280" viewBox="0 0 90 280" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d5"><path d="M8,0 L82,0 C85,48 88,105 85,158 C82,205 68,248 45,276 C22,248 7,205 4,158 C1,105 4,48 8,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="90" height="280" class="escorrimento" style="fill:#2A6300" clip-path="url(#d5)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:56%">
+        <svg width="70" height="270" viewBox="0 0 70 270" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d6"><path d="M6,0 L64,0 C67,42 69,92 67,140 C65,188 53,228 35,266 C17,228 4,188 2,140 C0,92 2,42 6,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="70" height="270" class="escorrimento" style="fill:#4A9900" clip-path="url(#d6)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:66%">
+        <svg width="50" height="230" viewBox="0 0 50 230" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d7"><path d="M4,0 L46,0 C48,30 50,68 48,104 C46,142 36,178 25,226 C14,178 3,142 1,104 C-1,68 1,30 4,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="50" height="230" class="escorrimento" style="fill:#1B4000" clip-path="url(#d7)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:75%">
+        <svg width="95" height="295" viewBox="0 0 95 295" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d8"><path d="M9,0 L86,0 C89,52 92,112 89,165 C86,214 72,256 47,291 C22,256 7,214 4,165 C1,112 4,52 9,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="95" height="295" class="escorrimento" style="fill:#2A6300" clip-path="url(#d8)"/>
+        </svg>
+      </div>
+
+      <div class="drip-unit" style="left:88%">
+        <svg width="75" height="255" viewBox="0 0 75 255" xmlns="http://www.w3.org/2000/svg">
+          <defs><clipPath id="d9"><path d="M6,0 L69,0 C72,40 74,88 72,134 C70,180 58,218 37,251 C16,218 3,180 1,134 C-1,88 1,40 6,0Z"/></clipPath></defs>
+          <rect x="0" y="0" width="75" height="255" class="escorrimento" style="fill:#3A8500" clip-path="url(#d9)"/>
+        </svg>
+      </div>
+
+    </div>
 
     <!-- Pandeiros SVG flutuando no fundo -->
     <div class="kids-pandeiros-bg">
