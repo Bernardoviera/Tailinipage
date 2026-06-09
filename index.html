@@ -185,7 +185,17 @@
     }
     .hero-title em {
       font-style: normal;
-      background: linear-gradient(90deg, var(--gold), var(--orange-bright));
+      background: linear-gradient(
+        115deg,
+        var(--orange-bright) 0%,
+        var(--gold)          28%,
+        #fff5c0              42%,
+        #fffde0              47%,
+        var(--gold)          52%,
+        var(--orange-bright) 80%,
+        var(--gold)          100%
+      );
+      background-size: 250% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -555,8 +565,8 @@
       to   { opacity: 1; transform: translateX(0); }
     }
     @keyframes shimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position: 200% center; }
+      0%   { background-position: 160% center; }
+      100% { background-position: -60% center; }
     }
     @keyframes pulse-gold {
       0%, 100% { box-shadow: 0 6px 28px rgba(245,183,49,0.45); }
@@ -611,7 +621,7 @@
     .hero-image-frame { animation: float 4s ease-in-out 1.2s infinite; }
     .btn-primary { animation: pulse-gold 2.5s ease-in-out infinite; }
     .btn-primary:hover { animation: none; }
-    .hero-title em { background-size: 200% auto; animation: shimmer 3s linear infinite; }
+    .hero-title em { animation: shimmer 2.8s linear infinite; }
     .about-deco { animation: spin-slow 18s linear infinite; }
 
     #pain-strip .pain-item {
