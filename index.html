@@ -538,6 +538,97 @@
     }
     .floating-cta a:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(245,183,49,0.65); }
 
+    /* ══════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════ */
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pulse-gold {
+      0%, 100% { box-shadow: 0 6px 28px rgba(245,183,49,0.45); }
+      50%       { box-shadow: 0 6px 40px rgba(245,183,49,0.75); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.from-left  { transform: translateX(-50px); }
+    .reveal.from-right { transform: translateX(50px); }
+    .reveal.scale-in   { transform: scale(0.88); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) translateX(0) scale(1);
+    }
+
+    .stagger-children > * {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .stagger-children.visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger-children.visible > *:nth-child(2) { transition-delay: 0.15s; }
+    .stagger-children.visible > *:nth-child(3) { transition-delay: 0.25s; }
+    .stagger-children.visible > *:nth-child(4) { transition-delay: 0.35s; }
+    .stagger-children.visible > *:nth-child(5) { transition-delay: 0.45s; }
+    .stagger-children.visible > *:nth-child(6) { transition-delay: 0.55s; }
+    .stagger-children.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-badge    { animation: fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-title    { animation: fadeUp 0.7s 0.35s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-sub      { animation: fadeUp 0.7s 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-proof    { animation: fadeUp 0.7s 0.62s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-cta-group{ animation: fadeUp 0.7s 0.74s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-image-wrap { animation: slideInRight 0.9s 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+    .hero-image-frame { animation: float 4s ease-in-out 1.2s infinite; }
+    .btn-primary { animation: pulse-gold 2.5s ease-in-out infinite; }
+    .btn-primary:hover { animation: none; }
+    .hero-title em { background-size: 200% auto; animation: shimmer 3s linear infinite; }
+    .about-deco { animation: spin-slow 18s linear infinite; }
+
+    #pain-strip .pain-item {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    #pain-strip.visible .pain-item:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
+    #pain-strip.visible .pain-item:nth-child(2) { opacity:1; transform:none; transition-delay:0.15s; }
+    #pain-strip.visible .pain-item:nth-child(3) { opacity:1; transform:none; transition-delay:0.25s; }
+    #pain-strip.visible .pain-item:nth-child(4) { opacity:1; transform:none; transition-delay:0.35s; }
+
+    .floating-cta.visible {
+      display: block;
+      animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
     @media (max-width: 860px) {
       .hero-inner, .about-grid, .promise-inner { grid-template-columns: 1fr; gap: 40px; }
       .hero-image-wrap { order: -1; max-width: 360px; margin: 0 auto; }
@@ -609,7 +700,7 @@
     </div>
   </section>
 
-  <div id="pain-strip">
+  <div id="pain-strip" class="reveal">
     <div class="container">
       <div class="pain-strip-inner">
         <div class="pain-item"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Sem precisar saber música</div>
@@ -623,7 +714,7 @@
   <section id="about">
     <div class="container">
       <div class="about-grid">
-        <div class="about-image-wrap">
+        <div class="about-image-wrap reveal from-left">
           <div class="about-frame">
             <!-- <img src="assets/images/tailine-about.jpg" alt="Tailine" /> -->
             <div class="img-placeholder">
@@ -633,7 +724,7 @@
           </div>
           <div class="about-deco"></div>
         </div>
-        <div class="about-content">
+        <div class="about-content reveal from-right">
           <div>
             <p class="section-label">Quem vai te ensinar</p>
             <h2 class="section-title">Eu sou<br><span class="text-gold">Tailine</span></h2>
@@ -654,12 +745,12 @@
 
   <section id="how">
     <div class="container">
-      <div class="how-header">
+      <div class="how-header reveal">
         <p class="section-label">Como funciona</p>
         <h2 class="section-title">Tudo o que você recebe<br><span class="text-gold">no curso</span></h2>
         <p class="section-desc">As aulas têm uma didática simples, clara e objetiva, de forma que o aluno não fica com nenhuma dúvida. Cada conteúdo é explicado detalhadamente, passo a passo.</p>
       </div>
-      <div class="how-grid">
+      <div class="how-grid stagger-children">
         <div class="how-card"><div class="how-number">01</div><div class="how-icon">🎬</div><h3>Aulas Gravadas Semanais</h3><p>As aulas são liberadas semanalmente para você assistir, praticar e evoluir no seu ritmo, onde e quando quiser.</p></div>
         <div class="how-card"><div class="how-number">02</div><div class="how-icon">👥</div><h3>Grupo Exclusivo de Alunos</h3><p>Acesso a grupo fechado exclusivo onde a Tailine analisa seu treino por vídeo, corrige detalhes e te ajuda a evoluir rapidamente.</p></div>
         <div class="how-card"><div class="how-number">03</div><div class="how-icon">🤝</div><h3>Acompanhamento Pessoal</h3><p>Você terá o acompanhamento da Tailine nos primeiros 2 meses — presente semanalmente e disponível para tudo que seu treino precisar.</p></div>
@@ -672,11 +763,11 @@
 
   <section id="students">
     <div class="container">
-      <div class="students-header">
+      <div class="students-header reveal">
         <p class="section-label">Comunidade</p>
         <h2 class="section-title">Alunas <span class="text-gold">Praticando</span></h2>
       </div>
-      <div class="students-grid">
+      <div class="students-grid stagger-children">
         <div class="student-card"><!-- <img src="assets/images/aluna-1.jpg" alt="Aluna 1" /> --><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 1</div></div>
         <div class="student-card"><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 2</div></div>
         <div class="student-card"><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 3</div></div>
@@ -689,7 +780,7 @@
   <section id="promise">
     <div class="container">
       <div class="promise-inner">
-        <div class="promise-content">
+        <div class="promise-content reveal from-left">
           <div>
             <p class="section-label" style="color:rgba(255,255,255,0.7)">Nossa promessa</p>
             <h2 class="section-title">Em 1 semana você<br>já toca seus<br><span style="color:var(--gold)">primeiros louvores</span></h2>
@@ -699,7 +790,7 @@
           <div class="promise-highlight">"Se você for um aluno comprometido, em apenas 1 semana já estará tocando seus primeiros louvores — isso é fato, e minhas alunas fazem questão de demonstrar essa satisfação."</div>
           <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="align-self:flex-start">Quero Louvar com Pandeiro →</a>
         </div>
-        <div class="promise-image">
+        <div class="promise-image reveal from-right">
           <!-- <img src="assets/images/tailine-promise.jpg" alt="Tailine ensinando" /> -->
           <div class="img-placeholder" style="color:rgba(255,255,255,0.3)">
             <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
@@ -712,11 +803,11 @@
 
   <section id="bonus">
     <div class="container">
-      <div class="bonus-header">
+      <div class="bonus-header reveal">
         <p class="section-label">Bônus Exclusivos</p>
         <h2 class="section-title">Você ainda ganha<br><span class="text-gold">de presente</span></h2>
       </div>
-      <div class="bonus-grid">
+      <div class="bonus-grid stagger-children">
         <div class="bonus-card">
           <div class="bonus-icon">🎁</div>
           <h3>Bônus 1 — Grupo VIP</h3>
@@ -733,11 +824,11 @@
 
   <section id="testimonials">
     <div class="container">
-      <div class="testimonials-header">
+      <div class="testimonials-header reveal">
         <p class="section-label">Resultados reais</p>
         <h2 class="section-title">O que as alunas<br><span class="text-gold">estão dizendo</span></h2>
       </div>
-      <div class="testimonials-grid">
+      <div class="testimonials-grid stagger-children">
         <div class="testimonial-card">
           <div class="testimonial-video">
             <!-- <iframe src="https://www.youtube.com/embed/ID_DO_VIDEO" allowfullscreen></iframe> -->
@@ -766,11 +857,11 @@
 
   <section id="pricing">
     <div class="container">
-      <div class="pricing-header">
+      <div class="pricing-header reveal">
         <p class="section-label">Investimento</p>
         <h2 class="section-title">Comece hoje mesmo<br><span class="text-gold">por apenas</span></h2>
       </div>
-      <div class="pricing-card">
+      <div class="pricing-card reveal scale-in">
         <div class="pricing-badge">Acesso Completo</div>
         <div class="pricing-name">Curso Pandeiro Gospel</div>
         <div class="pricing-price">
@@ -795,7 +886,7 @@
 
   <section id="final-cta">
     <div class="container">
-      <div class="final-cta-inner">
+      <div class="final-cta-inner reveal">
         <h2 class="final-cta-title">Sua jornada no louvor<br>começa com um passo</h2>
         <p class="final-cta-sub">Junte-se às alunas que já estão transformando o seu louvor com ritmo, sensibilidade e a orientação certa.</p>
         <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="font-size:1.1rem;padding:20px 52px">Quero Louvar com Pandeiro →</a>
@@ -818,6 +909,19 @@
     const floatingCta = document.getElementById('floatingCta');
     window.addEventListener('scroll', () => {
       floatingCta.classList.toggle('visible', window.scrollY > 500);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .stagger-children, #pain-strip').forEach(el => {
+      observer.observe(el);
     });
   </script>
 
