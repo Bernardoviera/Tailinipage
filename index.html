@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pandeiro Gospel – Curso com Tailine</title>
+  <meta name="description" content="Aprenda a tocar pandeiro gospel com Tailine. Didática simples, aulas semanais e acompanhamento individual. Comece hoje por R$247." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --orange-deep:   #C13A00;
+      --orange-mid:    #E04E0A;
+      --orange-bright: #FF6B1A;
+      --gold:          #F5B731;
+      --gold-light:    #FFD966;
+      --dark:          #120500;
+      --dark-card:     #1E0900;
+      --dark-mid:      #2D1000;
+      --cream:         #FFF8F0;
+      --white:         #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    .font-display  { font-family: 'Bebas Neue', cursive; letter-spacing: 0.04em; }
+    .font-body     { font-family: 'Lato', sans-serif; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .text-gold  { color: var(--gold); }
+    .text-orange{ color: var(--orange-bright); }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 44px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      box-shadow: 0 6px 28px rgba(245,183,49,0.45);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(245,183,49,0.6);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 15px 36px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      transition: all 0.18s ease;
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--orange-bright));
+      border-radius: 2px;
+      margin: 0 auto 24px;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(18,5,0,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,183,49,0.15);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--orange-mid), var(--gold));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .logo-text {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .logo-text span { color: var(--gold); }
+    nav a.nav-cta { font-size: 0.82rem; padding: 10px 22px; }
+
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(160deg, rgba(18,5,0,0.82) 0%, rgba(193,58,0,0.55) 55%, rgba(18,5,0,0.9) 100%),
+        url('assets/images/hero-bg.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(224,78,10,0.25) 0%, transparent 70%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,183,49,0.12);
+      border: 1px solid rgba(245,183,49,0.35);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero-badge span { font-size: 1rem; }
+
+    .hero-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--gold), var(--orange-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .hero-proof {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .hero-proof-item { display: flex; flex-direction: column; gap: 2px; }
+    .hero-proof-item strong {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .hero-proof-item span {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .hero-cta-group { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+    .hero-image-wrap { position: relative; }
+    .hero-image-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(180deg, var(--dark-mid) 0%, var(--orange-deep) 100%);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(245,183,49,0.2);
+    }
+    .hero-image-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-image-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; color: rgba(255,255,255,0.3);
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .hero-image-placeholder svg { opacity: 0.3; }
+
+    .hero-float-badge {
+      position: absolute;
+      bottom: -16px; left: -16px;
+      background: linear-gradient(135deg, var(--gold), var(--orange-mid));
+      color: var(--dark);
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-weight: 900;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    }
+    .hero-float-badge strong {
+      display: block;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      letter-spacing: 0.04em; line-height: 1.05;
+    }
+    .section-desc {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.05rem; line-height: 1.7;
+      color: rgba(255,255,255,0.75); max-width: 640px;
+    }
+
+    #pain-strip {
+      background: linear-gradient(90deg, var(--orange-deep), var(--orange-mid), var(--orange-deep));
+      padding: 20px 0;
+    }
+    .pain-strip-inner { display: flex; gap: 0; overflow: hidden; }
+    .pain-item {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 8px 20px;
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .pain-item:last-child { border-right: none; }
+    .pain-item svg { flex-shrink: 0; }
+
+    #about { padding: 100px 0; background: var(--dark); position: relative; }
+    #about::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,183,49,0.3), transparent);
+    }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .about-image-wrap { position: relative; }
+    .about-frame {
+      width: 100%; aspect-ratio: 4/5; border-radius: 12px; overflow: hidden;
+      background: linear-gradient(160deg, var(--dark-mid), var(--orange-deep));
+      border: 1px solid rgba(245,183,49,0.15);
+    }
+    .about-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-frame .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .about-deco {
+      position: absolute; top: -20px; right: -20px;
+      width: 140px; height: 140px;
+      border: 3px solid rgba(245,183,49,0.2);
+      border-radius: 50%; z-index: -1;
+    }
+    .about-content { display: flex; flex-direction: column; gap: 20px; }
+    .about-text { font-family: 'Lato', sans-serif; font-size: 1.08rem; line-height: 1.75; color: rgba(255,255,255,0.78); }
+    .about-credentials {
+      display: flex; flex-direction: column; gap: 12px;
+      padding: 24px;
+      background: rgba(245,183,49,0.06);
+      border: 1px solid rgba(245,183,49,0.15);
+      border-radius: 10px;
+    }
+    .credential-item { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .credential-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+    #how { padding: 100px 0; background: var(--dark-card); position: relative; overflow: hidden; }
+    #how::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(224,78,10,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .how-header { text-align: center; margin-bottom: 60px; }
+    .how-header .section-desc { margin: 16px auto 0; }
+    .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .how-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(245,183,49,0.12);
+      border-radius: 12px; padding: 32px 28px; position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .how-card:hover { border-color: rgba(245,183,49,0.35); transform: translateY(-4px); }
+    .how-number {
+      font-family: 'Bebas Neue', cursive; font-size: 3.5rem;
+      color: rgba(245,183,49,0.12); position: absolute;
+      top: 16px; right: 20px; letter-spacing: 0.04em; line-height: 1;
+    }
+    .how-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, rgba(224,78,10,0.25), rgba(245,183,49,0.2));
+      border: 1px solid rgba(245,183,49,0.25);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 20px;
+    }
+    .how-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; color: var(--white); }
+    .how-card p { font-family: 'Lato', sans-serif; font-size: 0.92rem; line-height: 1.65; color: rgba(255,255,255,0.65); }
+
+    #students { padding: 100px 0; background: var(--dark); }
+    .students-header { margin-bottom: 48px; }
+    .students-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .student-card {
+      aspect-ratio: 3/4; border-radius: 10px; overflow: hidden;
+      background: var(--dark-mid); border: 1px solid rgba(245,183,49,0.1); position: relative;
+    }
+    .student-card img { width: 100%; height: 100%; object-fit: cover; }
+    .student-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: rgba(255,255,255,0.2); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .student-card:first-child { grid-row: span 2; aspect-ratio: auto; }
+
+    #promise {
+      padding: 100px 0;
+      background: linear-gradient(160deg, var(--orange-deep) 0%, var(--orange-mid) 50%, var(--orange-deep) 100%);
+      position: relative; overflow: hidden;
+    }
+    #promise::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .promise-inner {
+      position: relative; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .promise-content { display: flex; flex-direction: column; gap: 20px; }
+    .promise-content .section-title { color: var(--white); }
+    .promise-text { font-family: 'Lato', sans-serif; font-size: 1.08rem; line-height: 1.75; color: rgba(255,255,255,0.88); }
+    .promise-highlight {
+      background: rgba(0,0,0,0.2); border-left: 4px solid var(--gold);
+      border-radius: 0 8px 8px 0; padding: 16px 20px;
+      font-weight: 700; font-size: 1rem; font-style: italic;
+      color: var(--white); font-family: 'Lato', sans-serif;
+    }
+    .promise-image {
+      aspect-ratio: 4/5; border-radius: 12px; overflow: hidden;
+      background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .promise-image img { width: 100%; height: 100%; object-fit: cover; }
+    .promise-image .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: rgba(255,255,255,0.3); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    #bonus { padding: 100px 0; background: var(--dark-card); position: relative; }
+    .bonus-header { text-align: center; margin-bottom: 56px; }
+    .bonus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 800px; margin: 0 auto; }
+    .bonus-card {
+      background: rgba(245,183,49,0.05); border: 1px solid rgba(245,183,49,0.2);
+      border-radius: 14px; padding: 32px 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .bonus-card:hover { border-color: rgba(245,183,49,0.5); transform: translateY(-3px); }
+    .bonus-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--orange-bright));
+    }
+    .bonus-icon { font-size: 2.2rem; }
+    .bonus-card h3 { font-weight: 800; font-size: 1rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; }
+    .bonus-card p { font-family: 'Lato', sans-serif; font-size: 0.92rem; line-height: 1.65; color: rgba(255,255,255,0.7); }
+
+    #testimonials { padding: 100px 0; background: var(--dark); }
+    .testimonials-header { text-align: center; margin-bottom: 56px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testimonial-card {
+      background: var(--dark-card); border: 1px solid rgba(245,183,49,0.12);
+      border-radius: 12px; padding: 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: border-color 0.2s;
+    }
+    .testimonial-card:hover { border-color: rgba(245,183,49,0.3); }
+    .testimonial-video {
+      aspect-ratio: 16/9; background: var(--dark-mid);
+      border-radius: 8px; overflow: hidden; position: relative;
+    }
+    .testimonial-video iframe { width: 100%; height: 100%; border: 0; }
+    .video-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      color: rgba(255,255,255,0.25); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    }
+    .play-btn {
+      width: 48px; height: 48px;
+      background: rgba(245,183,49,0.15); border: 2px solid rgba(245,183,49,0.4);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; }
+    .testimonial-name { font-weight: 700; font-size: 0.88rem; color: var(--white); }
+    .testimonial-role { font-size: 0.78rem; color: rgba(255,255,255,0.45); font-family: 'Lato', sans-serif; }
+
+    #pricing {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--dark-card) 0%, var(--dark) 100%);
+      position: relative; overflow: hidden;
+    }
+    #pricing::before {
+      content: ''; position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(245,183,49,0.06) 0%, transparent 70%);
+    }
+    .pricing-header { text-align: center; margin-bottom: 56px; }
+    .pricing-card {
+      max-width: 520px; margin: 0 auto;
+      background: var(--dark-card); border: 2px solid rgba(245,183,49,0.35);
+      border-radius: 20px; padding: 48px 40px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .pricing-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--orange-mid), var(--gold), var(--orange-bright));
+    }
+    .pricing-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--orange-deep), var(--orange-mid));
+      color: var(--white); font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .pricing-name { font-family: 'Bebas Neue', cursive; font-size: 2rem; letter-spacing: 0.08em; color: var(--white); margin-bottom: 8px; }
+    .pricing-price { display: flex; align-items: flex-start; justify-content: center; gap: 4px; margin: 24px 0; }
+    .price-currency { font-size: 1.4rem; font-weight: 800; color: var(--gold); margin-top: 8px; }
+    .price-value { font-family: 'Bebas Neue', cursive; font-size: 5.5rem; color: var(--gold); letter-spacing: 0.02em; line-height: 1; }
+    .price-cents { font-size: 1.4rem; font-weight: 800; color: var(--gold); margin-top: 8px; }
+    .pricing-once { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: -16px; margin-bottom: 28px; }
+    .pricing-features { list-style: none; margin-bottom: 36px; display: flex; flex-direction: column; gap: 12px; text-align: left; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: rgba(255,255,255,0.8); }
+    .check-icon { color: var(--gold); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .pricing-guarantee { margin-top: 24px; font-size: 0.8rem; color: rgba(255,255,255,0.4); font-family: 'Lato', sans-serif; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+    #final-cta {
+      padding: 100px 0;
+      background: linear-gradient(160deg, var(--orange-deep) 0%, var(--orange-mid) 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    #final-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(0,0,0,0.3) 0%, transparent 70%);
+    }
+    .final-cta-inner { position: relative; }
+    .final-cta-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 16px; }
+    .final-cta-sub { font-family: 'Lato', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+    footer { background: var(--dark); border-top: 1px solid rgba(245,183,49,0.1); padding: 32px 0; text-align: center; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); font-family: 'Lato', sans-serif; }
+    footer a { color: rgba(245,183,49,0.5); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+
+    .floating-cta { position: fixed; bottom: 28px; right: 28px; z-index: 200; display: none; }
+    .floating-cta.visible { display: block; }
+    .floating-cta a {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--gold); color: var(--dark);
+      font-weight: 900; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 14px 22px; border-radius: 100px; text-decoration: none;
+      box-shadow: 0 6px 28px rgba(245,183,49,0.5);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .floating-cta a:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(245,183,49,0.65); }
+
+    @media (max-width: 860px) {
+      .hero-inner, .about-grid, .promise-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-image-wrap { order: -1; max-width: 360px; margin: 0 auto; }
+      .hero-image-frame { aspect-ratio: 4/5; }
+      .hero-title { font-size: clamp(2.8rem, 8vw, 4rem); }
+      .how-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .students-grid { grid-template-columns: repeat(2, 1fr); }
+      .student-card:first-child { grid-row: auto; }
+      .bonus-grid { grid-template-columns: 1fr; }
+      .pain-strip-inner { flex-wrap: wrap; }
+      .pain-item { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .pricing-card { padding: 36px 24px; }
+    }
+    @media (max-width: 540px) {
+      .hero-proof { gap: 20px; }
+      .students-grid { grid-template-columns: 1fr 1fr; }
+      .pain-item { flex: 0 0 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🥁</div>
+        <div class="logo-text">Pandeiro <span>Gospel</span></div>
+      </a>
+      <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary nav-cta" target="_blank" rel="noopener">
+        Quero me inscrever
+      </a>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge"><span>🎵</span> Curso Online Gospel</div>
+          <h1 class="hero-title">
+            Aprenda a Tocar<br>
+            <em>Pandeiro Gospel</em><br>
+            Do Zero
+          </h1>
+          <p class="hero-sub">
+            Mesmo sem nunca ter tocado um instrumento antes, você estará louvando com ritmo e sensibilidade em apenas 1 semana de prática comprometida.
+          </p>
+          <div class="hero-proof">
+            <div class="hero-proof-item"><strong>+2 meses</strong><span>de acompanhamento</span></div>
+            <div class="hero-proof-item"><strong>Adulto</strong><span>e infantil</span></div>
+            <div class="hero-proof-item"><strong>Online</strong><span>onde você estiver</span></div>
+          </div>
+          <div class="hero-cta-group">
+            <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener">Quero Louvar com Pandeiro →</a>
+          </div>
+        </div>
+        <div class="hero-image-wrap">
+          <div class="hero-image-frame">
+            <!-- <img src="assets/images/tailine-hero.jpg" alt="Tailine com pandeiro" /> -->
+            <div class="hero-image-placeholder">
+              <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              Foto Tailine
+            </div>
+          </div>
+          <div class="hero-float-badge"><strong>R$247</strong>investimento único</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="pain-strip">
+    <div class="container">
+      <div class="pain-strip-inner">
+        <div class="pain-item"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Sem precisar saber música</div>
+        <div class="pain-item"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Aulas gravadas + grupo exclusivo</div>
+        <div class="pain-item"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Metodologia passo a passo</div>
+        <div class="pain-item"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Adulto e infantil</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrap">
+          <div class="about-frame">
+            <!-- <img src="assets/images/tailine-about.jpg" alt="Tailine" /> -->
+            <div class="img-placeholder">
+              <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              Foto Tailine
+            </div>
+          </div>
+          <div class="about-deco"></div>
+        </div>
+        <div class="about-content">
+          <div>
+            <p class="section-label">Quem vai te ensinar</p>
+            <h2 class="section-title">Eu sou<br><span class="text-gold">Tailine</span></h2>
+          </div>
+          <div class="divider" style="margin:0"></div>
+          <p class="about-text">Musicista e apaixonada por louvar ao Senhor com esse instrumento tão especial. Depois de anos ministrando com o pandeiro, hoje ensino pessoas do mundo inteiro — mesmo aquelas que nunca tocaram nada antes — a transformarem o louvor com ritmo e sensibilidade.</p>
+          <div class="about-credentials">
+            <div class="credential-item"><div class="credential-dot"></div>Musicista e ministradora de louvor</div>
+            <div class="credential-item"><div class="credential-dot"></div>Anos de experiência no pandeiro gospel pentecostal</div>
+            <div class="credential-item"><div class="credential-dot"></div>Alunos em todo o Brasil e no mundo</div>
+            <div class="credential-item"><div class="credential-dot"></div>Metodologia exclusiva para adultos e crianças</div>
+          </div>
+          <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-outline" target="_blank" rel="noopener">Quero aprender com a Tailine</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="container">
+      <div class="how-header">
+        <p class="section-label">Como funciona</p>
+        <h2 class="section-title">Tudo o que você recebe<br><span class="text-gold">no curso</span></h2>
+        <p class="section-desc">As aulas têm uma didática simples, clara e objetiva, de forma que o aluno não fica com nenhuma dúvida. Cada conteúdo é explicado detalhadamente, passo a passo.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-number">01</div><div class="how-icon">🎬</div><h3>Aulas Gravadas Semanais</h3><p>As aulas são liberadas semanalmente para você assistir, praticar e evoluir no seu ritmo, onde e quando quiser.</p></div>
+        <div class="how-card"><div class="how-number">02</div><div class="how-icon">👥</div><h3>Grupo Exclusivo de Alunos</h3><p>Acesso a grupo fechado exclusivo onde a Tailine analisa seu treino por vídeo, corrige detalhes e te ajuda a evoluir rapidamente.</p></div>
+        <div class="how-card"><div class="how-number">03</div><div class="how-icon">🤝</div><h3>Acompanhamento Pessoal</h3><p>Você terá o acompanhamento da Tailine nos primeiros 2 meses — presente semanalmente e disponível para tudo que seu treino precisar.</p></div>
+        <div class="how-card"><div class="how-number">04</div><div class="how-icon">📖</div><h3>Didática Simples e Clara</h3><p>Cada conteúdo é explicado de forma objetiva, sem enrolação. Você não fica com dúvidas, segue a orientação e avança com segurança.</p></div>
+        <div class="how-card"><div class="how-number">05</div><div class="how-icon">🧒</div><h3>Para Adultos e Crianças</h3><p>Metodologia adaptada para qualquer faixa etária. Seja você adulto ou levando seu filho, o aprendizado é garantido.</p></div>
+        <div class="how-card"><div class="how-number">06</div><div class="how-icon">⚡</div><h3>Resultado em 1 Semana</h3><p>Se você for um aluno comprometido, em apenas 1 semana já estará tocando seus primeiros louvores. Isso é fato.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="students">
+    <div class="container">
+      <div class="students-header">
+        <p class="section-label">Comunidade</p>
+        <h2 class="section-title">Alunas <span class="text-gold">Praticando</span></h2>
+      </div>
+      <div class="students-grid">
+        <div class="student-card"><!-- <img src="assets/images/aluna-1.jpg" alt="Aluna 1" /> --><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 1</div></div>
+        <div class="student-card"><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 2</div></div>
+        <div class="student-card"><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 3</div></div>
+        <div class="student-card"><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 4</div></div>
+        <div class="student-card"><div class="student-placeholder"><svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>Foto aluna 5</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="promise">
+    <div class="container">
+      <div class="promise-inner">
+        <div class="promise-content">
+          <div>
+            <p class="section-label" style="color:rgba(255,255,255,0.7)">Nossa promessa</p>
+            <h2 class="section-title">Em 1 semana você<br>já toca seus<br><span style="color:var(--gold)">primeiros louvores</span></h2>
+          </div>
+          <p class="promise-text">Dentro das aulas, você terá total liberdade para compartilhar suas dificuldades, e eu estarei ao seu lado em todas as etapas.</p>
+          <p class="promise-text">As aulas gravadas serão liberadas semanalmente. Você poderá assistir, praticar e receber minha instrução individualmente no grupo fechado exclusivo para alunos. Lá, vou analisar o seu treino por vídeo, corrigir detalhes e ajudar você a evoluir rapidamente.</p>
+          <div class="promise-highlight">"Se você for um aluno comprometido, em apenas 1 semana já estará tocando seus primeiros louvores — isso é fato, e minhas alunas fazem questão de demonstrar essa satisfação."</div>
+          <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="align-self:flex-start">Quero Louvar com Pandeiro →</a>
+        </div>
+        <div class="promise-image">
+          <!-- <img src="assets/images/tailine-promise.jpg" alt="Tailine ensinando" /> -->
+          <div class="img-placeholder" style="color:rgba(255,255,255,0.3)">
+            <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            Foto Tailine
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bonus">
+    <div class="container">
+      <div class="bonus-header">
+        <p class="section-label">Bônus Exclusivos</p>
+        <h2 class="section-title">Você ainda ganha<br><span class="text-gold">de presente</span></h2>
+      </div>
+      <div class="bonus-grid">
+        <div class="bonus-card">
+          <div class="bonus-icon">🎁</div>
+          <h3>Bônus 1 — Grupo VIP</h3>
+          <p>Acesso a um grupo fechado com a Tailine durante os <strong style="color:var(--gold)">primeiros 2 meses</strong> para tirar dúvidas e evoluir junto com outras alunas. É acompanhamento e incentivo direto de quem vive o louvor no dia a dia.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-icon">💃</div>
+          <h3>Bônus 2 — Levadas Especiais</h3>
+          <p>Levada exclusiva para <strong style="color:var(--gold)">grupos de coreografia</strong> e <strong style="color:var(--gold)">grupo de senhoras</strong> — conteúdo que vai além do básico e te coloca em outro nível no louvor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <p class="section-label">Resultados reais</p>
+        <h2 class="section-title">O que as alunas<br><span class="text-gold">estão dizendo</span></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <!-- <iframe src="https://www.youtube.com/embed/ID_DO_VIDEO" allowfullscreen></iframe> -->
+            <div class="video-placeholder"><div class="play-btn"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="color:rgba(245,183,49,0.7);margin-left:3px"><path d="M8 5v14l11-7z"/></svg></div>Depoimento em vídeo</div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <div><div class="testimonial-name">Aluna 1</div><div class="testimonial-role">Adicionar nome da aluna</div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <div class="video-placeholder"><div class="play-btn"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="color:rgba(245,183,49,0.7);margin-left:3px"><path d="M8 5v14l11-7z"/></svg></div>Depoimento em vídeo</div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <div><div class="testimonial-name">Aluna 2</div><div class="testimonial-role">Adicionar nome da aluna</div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-video">
+            <div class="video-placeholder"><div class="play-btn"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="color:rgba(245,183,49,0.7);margin-left:3px"><path d="M8 5v14l11-7z"/></svg></div>Depoimento em vídeo</div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <div><div class="testimonial-name">Aluna 3</div><div class="testimonial-role">Adicionar nome da aluna</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <div class="pricing-header">
+        <p class="section-label">Investimento</p>
+        <h2 class="section-title">Comece hoje mesmo<br><span class="text-gold">por apenas</span></h2>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-badge">Acesso Completo</div>
+        <div class="pricing-name">Curso Pandeiro Gospel</div>
+        <div class="pricing-price">
+          <span class="price-currency">R$</span>
+          <span class="price-value">247</span>
+          <span class="price-cents">,00</span>
+        </div>
+        <p class="pricing-once">Pagamento único · Acesso imediato</p>
+        <ul class="pricing-features">
+          <li><span class="check-icon">✦</span> Aulas gravadas liberadas semanalmente</li>
+          <li><span class="check-icon">✦</span> Didática simples e objetiva, passo a passo</li>
+          <li><span class="check-icon">✦</span> Metodologia para adultos e crianças</li>
+          <li><span class="check-icon">✦</span> Acompanhamento pessoal da Tailine por 2 meses</li>
+          <li><span class="check-icon">✦</span> <strong style="color:var(--gold)">Bônus:</strong> Grupo fechado exclusivo por 2 meses</li>
+          <li><span class="check-icon">✦</span> <strong style="color:var(--gold)">Bônus:</strong> Levada para coreografia e grupo de senhoras</li>
+        </ul>
+        <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="width:100%;text-align:center;font-size:1.05rem;padding:20px">Quero Louvar com Pandeiro →</a>
+        <p class="pricing-guarantee">🔒 Compra 100% segura via Kiwify</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="final-cta">
+    <div class="container">
+      <div class="final-cta-inner">
+        <h2 class="final-cta-title">Sua jornada no louvor<br>começa com um passo</h2>
+        <p class="final-cta-sub">Junte-se às alunas que já estão transformando o seu louvor com ritmo, sensibilidade e a orientação certa.</p>
+        <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="font-size:1.1rem;padding:20px 52px">Quero Louvar com Pandeiro →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Pandeiro Gospel · Curso da Tailine · Todos os direitos reservados</p>
+      <p style="margin-top:8px">Dúvidas? Entre em contato pelo <a href="https://pay.kiwify.com.br/7lu46Y3">link de compra</a>.</p>
+    </div>
+  </footer>
+
+  <div class="floating-cta" id="floatingCta">
+    <a href="https://pay.kiwify.com.br/7lu46Y3" target="_blank" rel="noopener">🥁 Quero me inscrever</a>
+  </div>
+
+  <script>
+    const floatingCta = document.getElementById('floatingCta');
+    window.addEventListener('scroll', () => {
+      floatingCta.classList.toggle('visible', window.scrollY > 500);
+    });
+  </script>
+
+</body>
+</html>
