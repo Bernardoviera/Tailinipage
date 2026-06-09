@@ -379,6 +379,50 @@
     .how-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; color: var(--white); }
     .how-card p { font-family: 'Lato', sans-serif; font-size: 0.92rem; line-height: 1.65; color: rgba(255,255,255,0.65); }
 
+    #kids {
+      padding: 100px 0;
+      background: var(--dark-card);
+      position: relative;
+      overflow: hidden;
+    }
+    #kids::before {
+      content: '';
+      position: absolute;
+      bottom: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,183,49,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .kids-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .kids-image {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(245,183,49,0.15);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .kids-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .kids-content {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .kids-text {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.75);
+    }
+
     #students { padding: 100px 0; background: var(--dark); }
     .students-header { margin-bottom: 48px; }
     .students-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -650,6 +694,7 @@
       .testimonials-grid { grid-template-columns: 1fr; }
       .students-grid { grid-template-columns: repeat(2, 1fr); }
       .student-card:first-child { grid-row: auto; }
+      .kids-inner { grid-template-columns: 1fr; gap: 36px; }
       .bonus-grid { grid-template-columns: 1fr; }
       .pain-strip-inner { flex-wrap: wrap; }
       .pain-item { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -781,6 +826,31 @@
         <div class="how-card"><div class="how-number">04</div><div class="how-icon">📖</div><h3>Didática Simples e Clara</h3><p>Cada conteúdo é explicado de forma objetiva, sem enrolação. Você não fica com dúvidas, segue a orientação e avança com segurança.</p></div>
         <div class="how-card"><div class="how-number">05</div><div class="how-icon">🧒</div><h3>Para Adultos e Crianças</h3><p>Metodologia adaptada para qualquer faixa etária. Seja você adulto ou levando seu filho, o aprendizado é garantido.</p></div>
         <div class="how-card"><div class="how-number">06</div><div class="how-icon">⚡</div><h3>Resultado em 1 Semana</h3><p>Se você for um aluno comprometido, em apenas 1 semana já estará tocando seus primeiros louvores. Isso é fato.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ KIDS SECTION ══ -->
+  <section id="kids">
+    <div class="container">
+      <div class="kids-inner">
+        <div class="kids-image reveal from-left">
+          <img src="assets/images/WhatsApp Image 2026-06-09 at 17.53.56.jpeg" alt="Tailine com seus filhos e pandeiro" />
+        </div>
+        <div class="kids-content reveal from-right">
+          <p class="section-label">Para toda a família</p>
+          <h2 class="section-title">Adultos <span class="text-gold">e crianças</span><br>aprendendo juntos</h2>
+          <div class="divider" style="margin:16px 0;"></div>
+          <p class="kids-text">
+            O curso foi pensado para funcionar em qualquer fase da vida. Seja você um adulto que sempre quis tocar, ou um pai que quer ver seu filho ministrar com o pandeiro — a metodologia da Tailine se adapta a cada aluno.
+          </p>
+          <p class="kids-text">
+            Crianças aprendem com leveza e brincadeira. Adultos aprendem com clareza e ritmo. O resultado é o mesmo: <strong style="color:var(--gold)">louvor de verdade em poucos dias.</strong>
+          </p>
+          <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="margin-top:8px;">
+            Quero Louvar com Pandeiro →
+          </a>
+        </div>
       </div>
     </div>
   </section>
