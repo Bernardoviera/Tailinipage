@@ -379,31 +379,100 @@
     .how-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; color: var(--white); }
     .how-card p { font-family: 'Lato', sans-serif; font-size: 0.92rem; line-height: 1.65; color: rgba(255,255,255,0.65); }
 
+    @keyframes floatA {
+      0%,100% { transform: translateY(0) rotate(-8deg); }
+      50%      { transform: translateY(-18px) rotate(-4deg); }
+    }
+    @keyframes floatB {
+      0%,100% { transform: translateY(0) rotate(12deg); }
+      50%      { transform: translateY(-24px) rotate(8deg); }
+    }
+    @keyframes floatC {
+      0%,100% { transform: translateY(0) rotate(0deg) scale(1); }
+      50%      { transform: translateY(-14px) rotate(6deg) scale(1.05); }
+    }
+    @keyframes spin-pandeiro {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
     #kids {
       padding: 100px 0;
-      background: var(--dark-card);
+      background: linear-gradient(160deg, #0D1A00 0%, #1A2E00 50%, #0D1A00 100%);
       position: relative;
       overflow: hidden;
     }
-    #kids::before {
+
+    /* Pandeiros decorativos flutuando */
+    .kids-deco {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .kids-deco-1 {
+      width: 140px; height: 140px;
+      border: 12px solid #7ED321;
+      top: -30px; left: 8%;
+      animation: floatA 5s ease-in-out infinite;
+    }
+    .kids-deco-1::after {
       content: '';
       position: absolute;
-      bottom: -200px; left: -200px;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(245,183,49,0.06) 0%, transparent 70%);
+      inset: 12px;
       border-radius: 50%;
+      background: radial-gradient(circle, rgba(126,211,33,0.3) 0%, transparent 70%);
     }
+    .kids-deco-2 {
+      width: 90px; height: 90px;
+      border: 10px solid var(--gold);
+      bottom: 20px; left: 3%;
+      animation: floatB 6s ease-in-out infinite 1s;
+    }
+    .kids-deco-3 {
+      width: 200px; height: 200px;
+      border: 14px solid #FF6B6B;
+      top: 30%; right: -40px;
+      animation: floatC 7s ease-in-out infinite 0.5s;
+      opacity: 0.12;
+    }
+    .kids-deco-4 {
+      width: 70px; height: 70px;
+      border: 8px solid #4ECDC4;
+      top: 15%; right: 20%;
+      animation: floatA 4s ease-in-out infinite 2s;
+    }
+    .kids-deco-5 {
+      width: 110px; height: 110px;
+      border: 10px solid var(--orange-bright);
+      bottom: 10%; right: 8%;
+      animation: floatB 5.5s ease-in-out infinite 0.8s;
+    }
+    /* notas musicais flutuantes */
+    .kids-note {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.15;
+      pointer-events: none;
+      animation: floatA 5s ease-in-out infinite;
+    }
+    .kids-note:nth-child(6)  { top: 12%; left: 20%; font-size: 2.5rem; animation-delay: 0.3s; }
+    .kids-note:nth-child(7)  { bottom: 18%; left: 28%; font-size: 1.8rem; animation-delay: 1.2s; }
+    .kids-note:nth-child(8)  { top: 55%; right: 15%; font-size: 2.2rem; animation-delay: 0.7s; animation-name: floatB; }
+
     .kids-inner {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 72px;
       align-items: center;
     }
     .kids-image {
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(245,183,49,0.15);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      box-shadow: 0 0 0 6px rgba(126,211,33,0.25), 0 32px 64px rgba(0,0,0,0.5);
+      position: relative;
     }
     .kids-image img {
       width: 100%;
@@ -416,11 +485,71 @@
       flex-direction: column;
       gap: 18px;
     }
+    .kids-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(126,211,33,0.12);
+      border: 1px solid rgba(126,211,33,0.35);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #A8E063;
+    }
+    .kids-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+    .kids-title span { color: #A8E063; }
     .kids-text {
       font-family: 'Lato', sans-serif;
       font-size: 1.05rem;
       line-height: 1.75;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.78);
+    }
+    .kids-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .kids-pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .kids-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #5DB300, #7ED321);
+      color: var(--dark);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 44px;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: 0 6px 28px rgba(126,211,33,0.35);
+      transition: transform 0.18s, box-shadow 0.18s;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .kids-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(126,211,33,0.5);
     }
 
     #students { padding: 100px 0; background: var(--dark); }
@@ -695,6 +824,7 @@
       .students-grid { grid-template-columns: repeat(2, 1fr); }
       .student-card:first-child { grid-row: auto; }
       .kids-inner { grid-template-columns: 1fr; gap: 36px; }
+      .kids-deco-3 { display: none; }
       .bonus-grid { grid-template-columns: 1fr; }
       .pain-strip-inner { flex-wrap: wrap; }
       .pain-item { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -832,23 +962,37 @@
 
   <!-- ══ KIDS SECTION ══ -->
   <section id="kids">
+    <!-- Pandeiros decorativos flutuando -->
+    <div class="kids-deco kids-deco-1"></div>
+    <div class="kids-deco kids-deco-2"></div>
+    <div class="kids-deco kids-deco-3"></div>
+    <div class="kids-deco kids-deco-4"></div>
+    <div class="kids-deco kids-deco-5"></div>
+    <div class="kids-note">🎵</div>
+    <div class="kids-note">🎶</div>
+    <div class="kids-note">🎵</div>
+
     <div class="container">
       <div class="kids-inner">
         <div class="kids-image reveal from-left">
           <img src="assets/images/WhatsApp Image 2026-06-09 at 17.53.56.jpeg" alt="Tailine com seus filhos e pandeiro" />
         </div>
         <div class="kids-content reveal from-right">
-          <p class="section-label">Para toda a família</p>
-          <h2 class="section-title">Adultos <span class="text-gold">e crianças</span><br>aprendendo juntos</h2>
-          <div class="divider" style="margin:16px 0;"></div>
+          <div class="kids-label">🥁 Para toda a família</div>
+          <h2 class="kids-title">Crianças e adultos<br><span>aprendendo juntos!</span></h2>
           <p class="kids-text">
-            O curso foi pensado para funcionar em qualquer fase da vida. Seja você um adulto que sempre quis tocar, ou um pai que quer ver seu filho ministrar com o pandeiro — a metodologia da Tailine se adapta a cada aluno.
+            Seja você um adulto que sempre quis tocar, ou um pai querendo ver seu filho ministrar — a metodologia da Tailine funciona para qualquer idade.
           </p>
+          <div class="kids-pills">
+            <div class="kids-pill">🧒 A partir de 5 anos</div>
+            <div class="kids-pill">👨 Adultos do zero</div>
+            <div class="kids-pill">👨‍👧 Em família</div>
+          </div>
           <p class="kids-text">
-            Crianças aprendem com leveza e brincadeira. Adultos aprendem com clareza e ritmo. O resultado é o mesmo: <strong style="color:var(--gold)">louvor de verdade em poucos dias.</strong>
+            Crianças aprendem com leveza e brincadeira. Adultos avançam com clareza e ritmo. O resultado é o mesmo: <strong style="color:#A8E063;">louvor de verdade em poucos dias! 🎉</strong>
           </p>
-          <a href="https://pay.kiwify.com.br/7lu46Y3" class="btn-primary" target="_blank" rel="noopener" style="margin-top:8px;">
-            Quero Louvar com Pandeiro →
+          <a href="https://pay.kiwify.com.br/7lu46Y3" class="kids-btn" target="_blank" rel="noopener">
+            Quero me inscrever! →
           </a>
         </div>
       </div>
