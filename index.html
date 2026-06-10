@@ -403,14 +403,32 @@
       overflow: hidden;
     }
 
-    /* ─ Canvas que pinta a seção de verde quando aparece ─ */
-    #kids-canvas {
+    /* ─ Tinta verde revelada por clip-path ao entrar na tela ─ */
+    #kids-green {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      background: linear-gradient(170deg, #0A1800 0%, #152800 60%, #0A1800 100%);
+      clip-path: polygon(
+        0% 0%, 100% 0%,
+        100% 0%, 96% 0%, 92% 0%, 88% 0%, 84% 0%, 80% 0%,
+        76% 0%, 72% 0%, 68% 0%, 64% 0%, 60% 0%, 56% 0%,
+        52% 0%, 48% 0%, 44% 0%, 40% 0%, 36% 0%, 32% 0%,
+        28% 0%, 24% 0%, 20% 0%, 16% 0%, 12% 0%, 8% 0%,
+        4% 0%, 0% 0%
+      );
+      transition: clip-path 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       z-index: 0;
       pointer-events: none;
+    }
+    #kids.visible #kids-green {
+      clip-path: polygon(
+        0% 0%, 100% 0%,
+        100% 100%, 96% 112%, 92% 100%, 88% 118%, 84% 100%, 80% 108%,
+        76% 100%, 72% 121%, 68% 100%, 64% 114%, 60% 100%, 56% 109%,
+        52% 100%, 48% 119%, 44% 100%, 40% 113%, 36% 100%, 32% 107%,
+        28% 100%, 24% 116%, 20% 100%, 16% 111%, 12% 100%, 8% 105%,
+        4% 100%, 0% 100%
+      );
     }
     .kids-pandeiros-bg, .kids-inner { position: relative; z-index: 1; }
 
@@ -901,7 +919,7 @@
   <!-- ══ KIDS SECTION ══ -->
   <section id="kids">
 
-    <canvas id="kids-canvas"></canvas>
+    <div id="kids-green"></div>
 
     <!-- Pandeiros SVG flutuando no fundo -->
     <div class="kids-pandeiros-bg">
@@ -1157,132 +1175,9 @@
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('.reveal, .stagger-children, #pain-strip').forEach(el => {
+    document.querySelectorAll('.reveal, .stagger-children, #pain-strip, #kids').forEach(el => {
       observer.observe(el);
     });
-
-    // ── Paint drip canvas animation ──────────────────────────────────────
-    (function() {
-      const section = document.getElementById('kids');
-      const canvas  = document.getElementById('kids-canvas');
-      if (!canvas) return;
-
-      function resize() {
-        canvas.width  = section.offsetWidth;
-        canvas.height = section.offsetHeight;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      // Each drip: cx (0–1 fraction of width), halfW (px), delay (s), speed (px/s), color
-      const DRIPS = [
-        { cx: 0.03,  w: 52,  delay: 0.00, speed: 480, color: '#1A3D00' },
-        { cx: 0.10,  w: 38,  delay: 0.12, speed: 520, color: '#245200' },
-        { cx: 0.18,  w: 68,  delay: 0.04, speed: 460, color: '#0D2800' },
-        { cx: 0.27,  w: 44,  delay: 0.20, speed: 540, color: '#336600' },
-        { cx: 0.36,  w: 58,  delay: 0.08, speed: 500, color: '#1A3D00' },
-        { cx: 0.46,  w: 72,  delay: 0.16, speed: 470, color: '#245200' },
-        { cx: 0.55,  w: 40,  delay: 0.26, speed: 560, color: '#0D2800' },
-        { cx: 0.64,  w: 62,  delay: 0.06, speed: 490, color: '#336600' },
-        { cx: 0.73,  w: 48,  delay: 0.18, speed: 510, color: '#1A3D00' },
-        { cx: 0.82,  w: 66,  delay: 0.10, speed: 475, color: '#245200' },
-        { cx: 0.91,  w: 42,  delay: 0.22, speed: 545, color: '#0D2800' },
-        { cx: 0.97,  w: 54,  delay: 0.02, speed: 505, color: '#336600' },
-      ];
-
-      // Fill level rises behind drips, covering full section
-      const FILL_DURATION = 1.8; // seconds until fully green
-      const FILL_COLOR = '#0F2800';
-
-      function drawFrame(elapsed) {
-        const W = canvas.width;
-        const H = canvas.height;
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, W, H);
-
-        // Slow rising fill (background flood)
-        const fillProgress = Math.min(1, elapsed / FILL_DURATION);
-        const fillEased = fillProgress < 0.5
-          ? 2 * fillProgress * fillProgress
-          : 1 - Math.pow(-2 * fillProgress + 2, 2) / 2;
-        const fillY = H * fillEased;
-
-        if (fillY > 0) {
-          ctx.fillStyle = FILL_COLOR;
-          ctx.fillRect(0, 0, W, fillY);
-        }
-
-        // Individual drips falling ahead of the fill
-        for (const d of DRIPS) {
-          const dt = Math.max(0, elapsed - d.delay);
-          const tipY = Math.min(H, dt * d.speed);
-          if (tipY <= 0) continue;
-
-          const cx    = d.cx * W;
-          const hw    = d.w / 2;          // half-width of stem
-          const blobR = d.w * 0.52;       // blob radius
-          const stemH = Math.max(0, tipY - blobR * 1.6); // stem height before blob
-          const neckW = hw * 0.28;        // half-width at narrowest (neck)
-
-          ctx.fillStyle = d.color;
-          ctx.beginPath();
-
-          if (tipY < blobR * 1.8) {
-            // Early: just a small growing circle
-            ctx.arc(cx, tipY * 0.5, tipY * 0.5, 0, Math.PI * 2);
-          } else {
-            // Full drip: tapered stem + round blob
-            // Left side of stem top
-            ctx.moveTo(cx - hw, 0);
-            // Right side of stem top
-            ctx.lineTo(cx + hw, 0);
-            // Taper down right side to neck
-            ctx.bezierCurveTo(
-              cx + hw,      stemH * 0.4,
-              cx + neckW,   stemH * 0.85,
-              cx + neckW,   stemH
-            );
-            // Blob (arc from right neck to left neck, going around the bottom)
-            ctx.arc(cx, stemH + blobR * 0.72, blobR, -0.4, Math.PI + 0.4);
-            // Taper back up left side
-            ctx.bezierCurveTo(
-              cx - neckW,   stemH * 0.85,
-              cx - hw,      stemH * 0.4,
-              cx - hw,      0
-            );
-          }
-
-          ctx.closePath();
-          ctx.fill();
-        }
-
-        return fillProgress < 1 || DRIPS.some(d => Math.min(H, Math.max(0, elapsed - d.delay) * d.speed) < H);
-      }
-
-      let startTime = null;
-      let rafId = null;
-
-      function tick(ts) {
-        if (!startTime) startTime = ts;
-        const elapsed = (ts - startTime) / 1000;
-        const keepGoing = drawFrame(elapsed);
-        if (keepGoing) rafId = requestAnimationFrame(tick);
-      }
-
-      // Start when section scrolls into view
-      const kidsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            rafId = requestAnimationFrame(tick);
-            kidsObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
-
-      kidsObserver.observe(section);
-    })();
-  </script>
 
 </body>
 </html>
