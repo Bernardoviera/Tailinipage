@@ -398,37 +398,21 @@
 
     #kids {
       padding: 110px 0 100px;
-      background: linear-gradient(170deg, #0A1800 0%, #152800 60%, #0A1800 100%);
+      background: var(--dark);
       position: relative;
       overflow: hidden;
     }
 
-    /* ─ Paint drips animados no topo da seção kids ─ */
-    .kids-paint {
+    /* ─ Canvas que pinta a seção de verde quando aparece ─ */
+    #kids-canvas {
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 300px;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
       pointer-events: none;
-      z-index: 3;
     }
-    .drip-unit {
-      position: absolute;
-      top: 0;
-    }
-    /* SVG default overflow:hidden clips rect fora do viewport — funciona como máscara */
-    .escorrimento {
-      opacity: 0;
-      transform: translateY(-300px);
-    }
-    #kids.visible .drip-unit:nth-child(1)  .escorrimento { animation: escorrer 1.1s 0.00s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(2)  .escorrimento { animation: escorrer 1.3s 0.14s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(3)  .escorrimento { animation: escorrer 1.0s 0.28s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(4)  .escorrimento { animation: escorrer 1.4s 0.07s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(5)  .escorrimento { animation: escorrer 1.1s 0.35s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(6)  .escorrimento { animation: escorrer 1.2s 0.21s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(7)  .escorrimento { animation: escorrer 1.0s 0.42s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(8)  .escorrimento { animation: escorrer 1.3s 0.10s ease-out forwards; }
-    #kids.visible .drip-unit:nth-child(9)  .escorrimento { animation: escorrer 1.1s 0.50s ease-out forwards; }
+    .kids-pandeiros-bg, .kids-inner { position: relative; z-index: 1; }
 
     /* ─ Background pandeiros SVG ─ */
     .kids-pandeiros-bg {
@@ -917,136 +901,7 @@
   <!-- ══ KIDS SECTION ══ -->
   <section id="kids">
 
-    <!-- Gotas de tinta escorrendo do topo ao entrar na seção -->
-    <div class="kids-paint">
-      <!--
-        Anatomia real de gota de tinta:
-        1. Topo largo (fixado na superfície)
-        2. Corpo afunilando
-        3. Pescoço fino
-        4. Bolha redonda na ponta
-
-        Paths desenhados com: topo flat → afinamento → pescoço → arco circular na base
-      -->
-
-      <!-- Gota 1: larga, bolha grande -->
-      <div class="drip-unit" style="left:1%">
-        <svg width="80" height="300" viewBox="0 0 80 300" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d1">
-            <path d="M2,0 L78,0 L78,45
-              C76,75 68,115 58,148 C53,162 50,172 50,180
-              C62,186 72,202 72,222 C72,248 58,268 40,268 C22,268 8,248 8,222 C8,202 18,186 30,180
-              C30,172 27,162 22,148 C12,115 4,75 2,45 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="80" height="300" class="escorrimento" style="fill:#1B4000" clip-path="url(#d1)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 2: estreita, comprida -->
-      <div class="drip-unit" style="left:11%">
-        <svg width="50" height="260" viewBox="0 0 50 260" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d2">
-            <path d="M2,0 L48,0 L48,35
-              C46,58 40,95 34,122 C31,134 29,144 29,152
-              C37,157 44,170 44,186 C44,207 37,224 25,224 C13,224 6,207 6,186 C6,170 13,157 21,152
-              C21,144 19,134 16,122 C10,95 4,58 2,35 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="50" height="260" class="escorrimento" style="fill:#2A6300" clip-path="url(#d2)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 3: muito larga, bolha enorme -->
-      <div class="drip-unit" style="left:20%">
-        <svg width="100" height="295" viewBox="0 0 100 295" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d3">
-            <path d="M2,0 L98,0 L98,55
-              C95,90 85,135 72,170 C67,185 64,196 64,206
-              C78,213 88,232 88,254 C88,277 74,294 50,294 C26,294 12,277 12,254 C12,232 22,213 36,206
-              C36,196 33,185 28,170 C15,135 5,90 2,55 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="100" height="295" class="escorrimento" style="fill:#3A8500" clip-path="url(#d3)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 4: fina, pequena -->
-      <div class="drip-unit" style="left:33%">
-        <svg width="44" height="220" viewBox="0 0 44 220" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d4">
-            <path d="M1,0 L43,0 L43,30
-              C41,50 36,82 30,104 C28,113 26,120 26,127
-              C32,131 38,142 38,155 C38,172 32,186 22,186 C12,186 6,172 6,155 C6,142 12,131 18,127
-              C18,120 16,113 14,104 C8,82 3,50 1,30 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="44" height="220" class="escorrimento" style="fill:#143300" clip-path="url(#d4)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 5: média, ligeiramente irregular -->
-      <div class="drip-unit" style="left:43%">
-        <svg width="72" height="275" viewBox="0 0 72 275" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d5">
-            <path d="M2,0 L70,0 L70,48
-              C67,78 59,120 50,152 C46,165 44,175 44,184
-              C54,190 62,206 62,224 C62,247 50,264 36,264 C22,264 10,247 10,224 C10,206 18,190 28,184
-              C28,175 26,165 22,152 C13,120 5,78 2,48 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="72" height="275" class="escorrimento" style="fill:#2A6300" clip-path="url(#d5)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 6: larga, comprida -->
-      <div class="drip-unit" style="left:55%">
-        <svg width="86" height="285" viewBox="0 0 86 285" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d6">
-            <path d="M2,0 L84,0 L84,50
-              C81,82 72,126 61,160 C57,173 54,184 54,193
-              C66,199 76,216 76,236 C76,260 63,278 43,278 C23,278 10,260 10,236 C10,216 20,199 32,193
-              C32,184 29,173 25,160 C14,126 5,82 2,50 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="86" height="285" class="escorrimento" style="fill:#4A9900" clip-path="url(#d6)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 7: estreita, curta -->
-      <div class="drip-unit" style="left:66%">
-        <svg width="40" height="200" viewBox="0 0 40 200" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d7">
-            <path d="M1,0 L39,0 L39,28
-              C37,46 32,74 27,94 C25,102 23,109 23,115
-              C29,119 34,129 34,141 C34,156 28,168 20,168 C12,168 6,156 6,141 C6,129 11,119 17,115
-              C17,109 15,102 13,94 C8,74 3,46 1,28 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="40" height="200" class="escorrimento" style="fill:#1B4000" clip-path="url(#d7)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 8: grande, bolha proeminente -->
-      <div class="drip-unit" style="left:74%">
-        <svg width="92" height="292" viewBox="0 0 92 292" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d8">
-            <path d="M2,0 L90,0 L90,52
-              C87,84 78,130 66,165 C61,179 58,190 58,200
-              C70,206 80,223 80,244 C80,268 67,286 46,286 C25,286 12,268 12,244 C12,223 22,206 34,200
-              C34,190 31,179 26,165 C14,130 5,84 2,52 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="92" height="292" class="escorrimento" style="fill:#2A6300" clip-path="url(#d8)"/>
-        </svg>
-      </div>
-
-      <!-- Gota 9: média -->
-      <div class="drip-unit" style="left:87%">
-        <svg width="62" height="248" viewBox="0 0 62 248" xmlns="http://www.w3.org/2000/svg">
-          <defs><clipPath id="d9">
-            <path d="M2,0 L60,0 L60,38
-              C57,63 50,100 42,128 C39,139 37,148 37,156
-              C46,161 52,174 52,190 C52,211 43,228 31,228 C19,228 10,211 10,190 C10,174 16,161 25,156
-              C25,148 23,139 20,128 C12,100 5,63 2,38 Z"/>
-          </clipPath></defs>
-          <rect x="0" y="0" width="62" height="248" class="escorrimento" style="fill:#3A8500" clip-path="url(#d9)"/>
-        </svg>
-      </div>
-
-    </div>
+    <canvas id="kids-canvas"></canvas>
 
     <!-- Pandeiros SVG flutuando no fundo -->
     <div class="kids-pandeiros-bg">
@@ -1302,9 +1157,131 @@
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('.reveal, .stagger-children, #pain-strip, #kids').forEach(el => {
+    document.querySelectorAll('.reveal, .stagger-children, #pain-strip').forEach(el => {
       observer.observe(el);
     });
+
+    // ── Paint drip canvas animation ──────────────────────────────────────
+    (function() {
+      const section = document.getElementById('kids');
+      const canvas  = document.getElementById('kids-canvas');
+      if (!canvas) return;
+
+      function resize() {
+        canvas.width  = section.offsetWidth;
+        canvas.height = section.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Each drip: cx (0–1 fraction of width), halfW (px), delay (s), speed (px/s), color
+      const DRIPS = [
+        { cx: 0.03,  w: 52,  delay: 0.00, speed: 480, color: '#1A3D00' },
+        { cx: 0.10,  w: 38,  delay: 0.12, speed: 520, color: '#245200' },
+        { cx: 0.18,  w: 68,  delay: 0.04, speed: 460, color: '#0D2800' },
+        { cx: 0.27,  w: 44,  delay: 0.20, speed: 540, color: '#336600' },
+        { cx: 0.36,  w: 58,  delay: 0.08, speed: 500, color: '#1A3D00' },
+        { cx: 0.46,  w: 72,  delay: 0.16, speed: 470, color: '#245200' },
+        { cx: 0.55,  w: 40,  delay: 0.26, speed: 560, color: '#0D2800' },
+        { cx: 0.64,  w: 62,  delay: 0.06, speed: 490, color: '#336600' },
+        { cx: 0.73,  w: 48,  delay: 0.18, speed: 510, color: '#1A3D00' },
+        { cx: 0.82,  w: 66,  delay: 0.10, speed: 475, color: '#245200' },
+        { cx: 0.91,  w: 42,  delay: 0.22, speed: 545, color: '#0D2800' },
+        { cx: 0.97,  w: 54,  delay: 0.02, speed: 505, color: '#336600' },
+      ];
+
+      // Fill level rises behind drips, covering full section
+      const FILL_DURATION = 1.8; // seconds until fully green
+      const FILL_COLOR = '#0F2800';
+
+      function drawFrame(elapsed) {
+        const W = canvas.width;
+        const H = canvas.height;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, W, H);
+
+        // Slow rising fill (background flood)
+        const fillProgress = Math.min(1, elapsed / FILL_DURATION);
+        const fillEased = fillProgress < 0.5
+          ? 2 * fillProgress * fillProgress
+          : 1 - Math.pow(-2 * fillProgress + 2, 2) / 2;
+        const fillY = H * fillEased;
+
+        if (fillY > 0) {
+          ctx.fillStyle = FILL_COLOR;
+          ctx.fillRect(0, 0, W, fillY);
+        }
+
+        // Individual drips falling ahead of the fill
+        for (const d of DRIPS) {
+          const dt = Math.max(0, elapsed - d.delay);
+          const tipY = Math.min(H, dt * d.speed);
+          if (tipY <= 0) continue;
+
+          const cx    = d.cx * W;
+          const hw    = d.w / 2;          // half-width of stem
+          const blobR = d.w * 0.52;       // blob radius
+          const stemH = Math.max(0, tipY - blobR * 1.6); // stem height before blob
+          const neckW = hw * 0.28;        // half-width at narrowest (neck)
+
+          ctx.fillStyle = d.color;
+          ctx.beginPath();
+
+          if (tipY < blobR * 1.8) {
+            // Early: just a small growing circle
+            ctx.arc(cx, tipY * 0.5, tipY * 0.5, 0, Math.PI * 2);
+          } else {
+            // Full drip: tapered stem + round blob
+            // Left side of stem top
+            ctx.moveTo(cx - hw, 0);
+            // Right side of stem top
+            ctx.lineTo(cx + hw, 0);
+            // Taper down right side to neck
+            ctx.bezierCurveTo(
+              cx + hw,      stemH * 0.4,
+              cx + neckW,   stemH * 0.85,
+              cx + neckW,   stemH
+            );
+            // Blob (arc from right neck to left neck, going around the bottom)
+            ctx.arc(cx, stemH + blobR * 0.72, blobR, -0.4, Math.PI + 0.4);
+            // Taper back up left side
+            ctx.bezierCurveTo(
+              cx - neckW,   stemH * 0.85,
+              cx - hw,      stemH * 0.4,
+              cx - hw,      0
+            );
+          }
+
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        return fillProgress < 1 || DRIPS.some(d => Math.min(H, Math.max(0, elapsed - d.delay) * d.speed) < H);
+      }
+
+      let startTime = null;
+      let rafId = null;
+
+      function tick(ts) {
+        if (!startTime) startTime = ts;
+        const elapsed = (ts - startTime) / 1000;
+        const keepGoing = drawFrame(elapsed);
+        if (keepGoing) rafId = requestAnimationFrame(tick);
+      }
+
+      // Start when section scrolls into view
+      const kidsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            rafId = requestAnimationFrame(tick);
+            kidsObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      kidsObserver.observe(section);
+    })();
   </script>
 
 </body>
